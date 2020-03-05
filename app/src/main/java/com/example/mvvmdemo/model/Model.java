@@ -1,10 +1,9 @@
 package com.example.mvvmdemo.model;
 
 import java.util.Observable;
-import java.util.Observer;
 
 public class Model extends Observable {
-    private String data = "hello";
+    private String data = "123";
 
     public String getData() {
         return data;
