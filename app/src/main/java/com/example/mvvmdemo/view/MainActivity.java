@@ -1,4 +1,4 @@
-package com.example.mvvmdemo;
+package com.example.mvvmdemo.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.mvvmdemo.R;
+
+import java.util.Observable;
+import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(editText.getText());
             }
         });
-
     }
+
+
+
 }
