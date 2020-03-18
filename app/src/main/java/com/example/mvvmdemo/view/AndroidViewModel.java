@@ -3,15 +3,16 @@ package com.example.mvvmdemo.view;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvmdemo.model.Model;
+import androidx.lifecycle.ViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewModel {
+public class AndroidViewModel extends ViewModel {
     private MutableLiveData<String> presentableData = new MutableLiveData<>();
     private Model model = new Model();
 
-    public ViewModel() {
+    public AndroidViewModel() {
         observeModel(model);
         presentableData.setValue(model.getData());
     }
