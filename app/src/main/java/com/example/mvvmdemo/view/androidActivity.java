@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import java.util.Observer;
 
 public class androidActivity extends AppCompatActivity{
     private Model model = new Model();
+    private ViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +25,14 @@ public class androidActivity extends AppCompatActivity{
 
         observeModel(model);
 
-        final EditText inputText = findViewById(R.id.inputText);
-        final TextView outputView = findViewById(R.id.outputView);
-
-        inputText.setText(model.getData());
-        outputView.setText(model.getData());
+        final Button button = findViewById(R.id.enterButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText inputText = findViewById(R.id.inputText);
+                model.setData(inputText.getText().toString());
+            }
+            });
     }
 
 
@@ -35,17 +40,14 @@ public class androidActivity extends AppCompatActivity{
         model.addObserver(new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                TextView outputView = findViewById(R.id.outputView);
-                outputView.setText(((Model) o).getData());
+                if (o instanceof Model) {
+                    TextView outputView = findViewById(R.id.outputView);
+                    outputView.setText(((Model) o).getData());
+                }
             }
         });
     }
 
 
-    public void enterInput(View view) {
-        EditText inputText = findViewById(R.id.inputText);
-        model.setData(inputText.getText().toString());
-
-    }
 
 }

@@ -11,8 +11,13 @@ public class Model extends Observable {
 
     public void setData(String data) {
         this.data = data;
+        setChangedAndNotifyObserversSimpl();
+    }
+
+    private void setChangedAndNotifyObserversSimpl() {
         setChanged();
         notifyObservers();
+
     }
 
 }
