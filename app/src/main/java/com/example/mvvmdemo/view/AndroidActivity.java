@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import com.example.mvvmdemo.R;
 
+import java.util.Observable;
+
 
 public class AndroidActivity extends AppCompatActivity{
-    public AndroidViewModel androidViewModel;
+    public AndroidPresenter androidPresenter = new AndroidPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,42 +24,27 @@ public class AndroidActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         observeViewModel();
-        //observeModel(model);
 
         final Button button = findViewById(R.id.enterButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText inputText = findViewById(R.id.inputText);
-                androidViewModel.setData(inputText.getText().toString());
+                androidPresenter.setData(inputText.getText().toString());
             }
         });
     }
 
-
-    /*private void observeModel(Model model) {
-        model.addObserver(new Observer() {
+    private void observeViewModel() {
+        androidPresenter.addObserver(new java.util.Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                if (o instanceof Model) {
+                if (o instanceof AndroidPresenter) {
                     TextView outputView = findViewById(R.id.outputView);
-                    outputView.setText(((Model) o).getData());
+                    outputView.setText(((AndroidPresenter) o).getPresentableData());
                 }
             }
         });
-    }*/
-
-    private void observeViewModel() {
-        androidViewModel = new ViewModelProvider(this).get(AndroidViewModel.class);
-        androidx.lifecycle.Observer<String> stringObserver = new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                TextView outputView = findViewById(R.id.outputView);
-                outputView.setText(s);
-            }
-        };
-
-        androidViewModel.getPresentableData().observe(this, stringObserver);
     }
 
 

@@ -8,26 +8,29 @@ import androidx.lifecycle.ViewModel;
 import java.util.Observable;
 import java.util.Observer;
 
-public class AndroidViewModel extends ViewModel {
-    private MutableLiveData<String> presentableData = new MutableLiveData<>();
+public class AndroidPresenter extends Observable {
+    private String presentableData;
     private Model model = new Model();
 
-    public AndroidViewModel() {
+    public AndroidPresenter() {
         observeModel(model);
-        presentableData.setValue(model.getData());
+        presentableData = model.getData();
     }
 
-    private void observeModel(Model model) {
+    private void observeModel(final Model model) {
         model.addObserver(new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                presentableData.setValue(((Model) o).getData());
+                presentableData = ((Model) o).getData();
+                setChanged();
+                notifyObservers();
+
             }
         });
     }
 
 
-    public MutableLiveData<String> getPresentableData() {
+    public String getPresentableData() {
         return presentableData;
     }
 

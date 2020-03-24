@@ -17,7 +17,6 @@ public class Model extends Observable {
     private void setChangedAndNotifyObserversSimpl() {
         setChanged();
         notifyObservers();
-
     }
 
 }
